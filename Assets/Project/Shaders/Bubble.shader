@@ -98,7 +98,8 @@
                 float rmask = smoothstep(rbegin, rend, normalizedDistance);
 
                 float rad = distance * _WaveRatio - _Time.w;
-                float s = sin(rad) * pow(1.0 - normalizedDistance, 1.5) * _WaveSize;
+                float influence = 1.0 - smoothstep(0, 0.3, normalizedDistance);
+                float s = sin(rad) * _WaveSize * influence;
                 s *= s;
                 float mm = s * (mask * rmask);
 
@@ -149,6 +150,7 @@
                 float d1 = fbm(i.uv + _Time.xy * 0.22, 2);
                 float d2 = fbm(i.uv - _Time.xy * 0.33, 2);
                 float d3 = fbm(i.uv + _Time.xy * 0.40, 2);
+
 
                 float t1 = smoothstep(0.1, 0.35, d1 * d2);
                 float t2 = smoothstep(0.1, 0.25, d1 * d3);
